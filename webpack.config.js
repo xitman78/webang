@@ -2,12 +2,13 @@
 
 var NODE_ENV = process.env.NODE_ENV || 'development';
 var webpack = require('webpack');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     context: __dirname + '/app',
     entry: './app.js',
     output: {
-        path: __dirname + '/app',
+        path: __dirname + '/dist',
         filename: 'bundle.js'
     },
 
@@ -24,7 +25,10 @@ module.exports = {
         new webpack.DefinePlugin({
             NODE_ENV: JSON.stringify(NODE_ENV),
             LANG: JSON.stringify('en')
-        })
+        }),
+        new CopyWebpackPlugin([
+            { from: 'index.html', to: '../dist/index.html' }
+        ])
     ]
 };
 
